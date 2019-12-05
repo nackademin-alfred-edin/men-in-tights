@@ -1,3 +1,5 @@
+import color
+
 #TODO Import Class files
 
 def Knight():
@@ -13,9 +15,10 @@ def Saved():
     print("Select Saved Hero: ")
 
 def main():
-    print("""\n\
-       WELCOME TO 'Dungeon Run'!
-
+    print(color.color.fg.lightblue, "    WELCOME TO ", end="")
+    print(color.color.fg.red, "Dungeon Run", end="")
+    print(color.color.fg.lightblue, "!", end="\n\n")
+    print(color.color.fg.lightgrey, """
     Start by choosing your hero, or load a previous saved hero
     1. Knight
     2. Wizard
@@ -23,13 +26,14 @@ def main():
 
     4. Load Saved Hero
 \n""")
-    choice = input("Enter number for Hero: ")
+    print(color.color.fg.purple, "Enter number for Hero: ", end="")
+    choice = input()
     choice_menu =  {'1': Knight,
                     '2': Wizard,
                     '3': Thief,
                     '4': Saved}
     if choice not in choice_menu.keys():
-        print("Please choose a hero ")
+        print(color.color.fg.red, "Please choose a hero ")
     else:
         choice_menu[choice]()
 
