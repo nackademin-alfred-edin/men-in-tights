@@ -26,7 +26,7 @@ def main():
 
     4. Load Saved Hero
 \n""")
-    print(color.color.fg.purple, "Enter number for Hero: ", end="")
+    print(color.color.fg.purple, "Enter number for Hero: ", end="" + color.color.fg.reset)
     choice = input()
     choice_menu =  {'1': Knight,
                     '2': Wizard,

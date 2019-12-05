@@ -16,6 +16,7 @@ class color:
         lightblue='\033[94m'
         pink='\033[95m'
         lightcyan='\033[96m'
+        reset='\033[0m'
     class bg: 
         black='\033[40m'
         red='\033[41m'
