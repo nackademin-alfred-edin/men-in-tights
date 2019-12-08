@@ -7,7 +7,7 @@ import color
 class Dungeon:
     def __init__(self, map_size):
         self.map_size = map_size
-        self.dungeon = generate_map(map_size)
+        self.dungeon = self.generate_map(map_size)
 
     def generate_map(self, map_size):
         room = [] #empty list 
@@ -29,7 +29,5 @@ class Dungeon:
                     print(color.fg.orange, dungeon[i][j], end=x)
                 else:
                     print(color.fg.purple, dungeon[i][j], end=x)
-
-
 
 #TODO place_treasure() and place_monster()
