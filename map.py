@@ -14,6 +14,7 @@ class Dungeon:
     def __init__(self, map_size):
         self.map_size = map_size
         self.dungeon = self.generate_map(self.map_size)
+        self.start_room = self.start_point()
         if self.map_size == 4:
             self.place_monsters(monsters_lite)
             self.place_tresure(treasures_lite)
@@ -24,14 +25,22 @@ class Dungeon:
             self.place_monsters(monsters_big)
             self.place_tresure(treasures_big)
 
+    def start_point(self, x, y):
+        return (x, y)
+
+
     def generate_map(self, map_size):
         room = [] #empty list 
         return [[room*map_size for i in range(map_size)] for j in range(map_size)]
 #Working on function "exclude corners"
     def get_room(self, map_size):
-        x = randint(0, map_size - 1)
-        y = randint(0, map_size - 1)    
-        return self.dungeon[x][y]
+        while True:
+            x = randint(0, map_size - 1)
+            y = randint(0, map_size - 1)
+            if (x, y) != self.start_room:   
+                return self.dungeon[x][y]
+                break
+        
     
     def place_monsters(self, monsters_dict):
         for monster, value in monsters_dict.items():
@@ -47,14 +56,22 @@ class Dungeon:
 
 #This function print dungeon for user
     def print_dungeon(self, x, y):
+        room = "[X]" 
+        dungeon = [[room for i in range(self.map_size)] for j in range(self.map_size)]
         dungeon[x][y] = "[O]"
-        for i in range(map_size):
-            for j in range(map_size):
+        for i in range(self.map_size):
+            for j in range(self.map_size):
                 x = ""
-                if j == map_size - 1:
+                if j == self.map_size - 1:
                     x = "\n"
                 if dungeon[i][j] == "[O]":
-                    print(color.fg.orange, dungeon[i][j], end=x)
+                    print(color.color.fg.orange, dungeon[i][j], end=x)
                 else:
-                    print(color.fg.purple, dungeon[i][j], end=x)
+                    print(color.color.fg.purple, dungeon[i][j], end=x + color.color.fg.reset)
+
+    def move(self, x, y):
+        
+
+
+        return x, y
 
