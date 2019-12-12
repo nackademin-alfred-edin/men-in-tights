@@ -1,57 +1,74 @@
 from random import randint
+import monster_treasure as mt
 import color
-
-#monsters and treasures dictionaries depends on map_size
-monsters_lite = {"spider":3, "skeleton":2, "orc":2, "troll":1}
-monsters_medium = {"spider":5, "skeleton":4, "orc":3, "troll":1}
-monsters_big = {"spider":13, "skeleton":10, "orc":6, "troll":3}
-
-treasures_lite = {"coins":7, "pouch":3, "jewelry":2, "gemstone":2, "chest":1} 
-treasures_medium = {"coins":10, "pouch":5, "jewelry":4, "gemstone":3, "chest":1} 
-treasures_big = {"coins":25, "pouch":13, "jewelry":10, "gemstone":6, "chest":3} 
+ 
 
 class Dungeon:
-    def __init__(self, map_size):
+    def __init__(self, map_size, x, y):
         self.map_size = map_size
+        self.start_room = self.start_point(x, y)
         self.dungeon = self.generate_map(self.map_size)
-        self.start_room = self.start_point() #take start_point coordinates
-        if self.map_size == 4:
-            self.place_monsters(monsters_lite)
-            self.place_tresure(treasures_lite)
-        if self.map_size == 5:
-            self.place_monsters(monsters_medium)
-            self.place_tresure(treasures_medium)
-        if self.map_size == 8:
-            self.place_monsters(monsters_big)
-            self.place_tresure(treasures_big)
+        
 
     def start_point(self, x, y):
         return (x, y)
 
 
     def generate_map(self, map_size):
-        room = [] #empty list 
-        return [[room*map_size for i in range(map_size)] for j in range(map_size)]
-#Working on function "exclude corners"
-    def get_room(self, map_size):
-        while True:
-            x = randint(0, map_size - 1)
-            y = randint(0, map_size - 1)
-            if (x, y) != self.start_room:   
-                return self.dungeon[x][y]
-                break
+        room = [] 
+        dungeon = [[room*map_size for i in range(map_size)] for j in range(map_size)]
+        for i in range(map_size):
+            for j in range(map_size):
+                if self.start_room != (i, j):
+                    self.place_content(dungeon[i][j])
+        return dungeon
+
+    def fil_dungeon(self):
+        for i in range(map_size):
+            for j in range(map_size):
+                self.place_content(self.dungeon[i][j])
+
         
-    
-    def place_monsters(self, monsters_dict):
-        for monster, value in monsters_dict.items():
-            while value > 0:
-                self.get_room(self.map_size).append(monster)
-                value -= 1
-    def place_tresure(self, treasure_dict):
-        for treasure, value in treasure_dict.items():
-            while value > 0:
-                self.get_room(self.map_size).append(treasure)
-                value -= 1
+
+    def place_content(self, room):
+        content = ["spider", "skeleton", "orc", "troll", "coins", "pouch", "jewelry", "gemstone", "chest"]
+        for i in content:
+            if i == "spider":
+                if mt.Spider.commonness >= randint(0, 100):
+                    spider = mt.Spider()
+                    room.append(spider)
+            if i == "skeleton":
+                if mt.Skeleton.commonness >= randint(0, 100):
+                    skeleton = mt.Skeleton()
+                    room.append(skeleton)
+            if i == "orc":
+                if mt.Orc.commonness >= randint(0, 100):
+                    orc = mt.Orc()
+                    room.append(orc)
+            if i == "troll":
+                if mt.Troll.commonness >= randint(0, 100):
+                    troll = mt.Troll()
+                    room.append(troll)
+            if i == "coins":
+                if mt.Coins.commonness >= randint(0, 100):
+                    coins = mt.Coins()
+                    room.append(coins)
+            if i == "pouch":
+                if mt.Pouch.commonness >= randint(0, 100):
+                    pouch = mt.Pouch()
+                    room.append(pouch)
+            if i == "jewelry":
+                if mt.Jewelry.commonness >= randint(0, 100):
+                    jewelry = mt.Jewelry()
+                    room.append(jewelry)
+            if i == "gemstone":
+                if mt.Gemstone.commonness >= randint(0, 100):
+                    gemstone = mt.Gemstone()
+                    room.append(gemstone)
+            if i == "chest":
+                if mt.Chest.commonness >= randint(0, 100):
+                    chest = mt.Chest()
+                    room.append(chest)
 
 
 #This function print dungeon for user
@@ -69,9 +86,4 @@ class Dungeon:
                 else:
                     print(color.color.fg.purple, dungeon[i][j], end=x + color.color.fg.reset)
 
-    def move(self, x, y):
-        
-
-
-        return x, y
 
