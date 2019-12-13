@@ -48,7 +48,7 @@ def game():
     select_map()
     
 temp = 0 
-#game()
+game()
 #print(sys.path)
 #x = map.Dungeon(8)
 #print(x.dungeon)
