@@ -2,6 +2,27 @@ from random import randint
 import monster_treasure as mt
 import color
  
+ 
+def print_move():
+    print("CHOOSE DIRECTION TO GO")
+    print("North- N")
+    print("West- W")
+    print("East- E")
+    print("South- S")
+    direction = input("--->")
+    return direction.lower()
+
+def move(direction, x, y):
+    if direction == "n":
+        x -= 1
+    elif direction == "w":
+        y -= 1
+    elif direction == "e":
+        y += 1
+    elif direction == "s":
+        x += 1
+    return x, y
+
 
 class Dungeon:
     def __init__(self, map_size, x, y):
