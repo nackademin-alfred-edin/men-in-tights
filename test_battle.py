@@ -9,7 +9,7 @@ monster = monster_class.Spider()
 
 def attack(hero, monster): #TODO Endurance to be change to Stamina to match other changes
 #IF: monster.endurance <= 0, battle won
-    for monster in list_of_monsters:
+    for monster in range(list_of_monsters):
         go = True
         while go == True:
             print(f"Monster's Stamina: {monster.endurance}")
