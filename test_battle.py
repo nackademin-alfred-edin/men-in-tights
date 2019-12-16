@@ -7,15 +7,29 @@ hero = Heroes.Knight()
 monster = monster_class.Spider()
 
 
-def attack(hero, monster):
+def attack(hero, monster): #TODO Endurance to be change to Stamina to match other changes
 #IF: monster.endurance <= 0, battle won
-    print(f"Monster's Stamina: {monster.endurance}")
-    if die.die(hero.attack) > die.die(monster.agility):
-        print("\nSuccesful roll! Monster takes 1 damage")
-        monster.endurance -= 1  #TODO Endurance to be change to Stamina to match other changes
-        print("Stamina after attack: ", monster.endurance)
-    else:
-        print("Attack missed!")
+    for monster in list_of_monsters:
+        go = True
+        while go == True:
+            print(f"Monster's Stamina: {monster.endurance}")
+            if die.die(hero.attack) > die.die(monster.agility): #If Hero's attack is larger than monster's agility, inflict 1 dmg
+                print("\nSuccesful roll! Monster takes 1 damage")
+                monster.endurance -= 1
+                print("Stamina after attack: ", monster.endurance)
+                if monster.endurance == 0:
+                    print("\nMonster slain!")
+                    go = False
+            else:
+                print("Attack missed!")
+
+            elif: die.die(monster.attack) > die.die(hero.agility):
+                print("\nMonster attacks you for 1 damage!")
+                hero.endurance -= 1
+                print(f"Health after attack {hero.endurance}")
+                #if hero.endurance == 0:
+                #   go = False
+                #   game_over() 
 
 def escape(hero):
     escape_chance = hero.agility * 10
@@ -23,9 +37,9 @@ def escape(hero):
     var = random.randint(0, 100)
     #print(f"Probability: {var}") 
     if var <= escape_chance:
-        print(f"Succes! \nYou've escaped!")
+        print(f"Roll Succes! \nYou've escaped!")
     else:
-        print("Failed! \nCannot escape")
+        print("Roll Failed! \nCannot escape")
 
 escape(hero)
 print("\n")
