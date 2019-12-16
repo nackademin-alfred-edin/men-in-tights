@@ -28,6 +28,26 @@ def start_point():
     elif corner == "3":
         pass
 
+def print_move():
+    print("CHOOSE DIRECTION TO GO")
+    print("North- N")
+    print("West- W")
+    print("East- E")
+    print("South- S")
+    direction = input("--->")
+    return direction.lower()
+
+def move(direction, x, y):
+    if direction == "n":
+        x -= 1
+    elif direction == "w":
+        y -= 1
+    elif direction == "e":
+        y += 1
+    elif direction == "s":
+        x += 1
+    return x, y
+
     
 class Dungeon:
     def __init__(self, map_size):
@@ -80,4 +100,7 @@ class Dungeon:
                     print(f"""{dungeon[i][j]}""", end=x)
                     sys.stdout.flush()
                     sleep(0.06)
+                    
+
+     
 
