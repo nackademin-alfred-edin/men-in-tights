@@ -10,13 +10,8 @@ def game():
 
     menu.printLogo()
     menu.startScreen()
-    menu.clear()
-    menu.printLogo()
-    menu.hero_menu()
-    menu.clear()
-    menu.printLogo()
     menu.select_map()
-
 
 if __name__ == "__main__":
     game()
+
