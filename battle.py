@@ -3,8 +3,8 @@ import die
 import monster_class
 import random
 
-hero = Heroes.Knight()
-monster = monster_class.Spider()
+#hero = Heroes.Knight()
+#monster = monster_class.Spider()
 
 
 def attack(hero, monster): #TODO Endurance to be change to Stamina to match other changes
