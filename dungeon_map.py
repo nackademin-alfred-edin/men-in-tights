@@ -133,8 +133,30 @@ class Room:
                 if mt.Chest.commonness >= randint(0, 100):
                     chest = mt.Chest()
                     self.treasure.append(chest)
+                 
+             
+def print_move():
+    print("CHOOSE DIRECTION TO GO")
+    print("North- N")
+    print("West- W")
+    print("East- E")
+    print("South- S")
+    direction = ""
+    f = True
+    while f:
+        directions = ["n", "w", "e", "s"]
+        direction = input("--->")
+        
+        if direction.lower() not in directions:
+            print("You have to tape N,W,E or S")
 
+        else:
+            f = False
+    
+    return direction.lower()
 
+   
+        
 ds = Dungeon(8)
 coordinates = ds.start_room
 ds.print_dungeon(coordinates)
