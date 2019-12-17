@@ -1,22 +1,41 @@
 from random import randint
 import monster_treasure as mt
 import color
- 
+
+def print_move():
+    print("CHOOSE DIRECTION TO GO")
+    print("North- N")
+    print("West- W")
+    print("East- E")
+    print("South- S")
+    direction = input("--->")
+    return direction.lower()
+
+
+def move(direction, x, y):
+    if direction == "n":
+        x -= 1
+    elif direction == "w":
+        y -= 1
+    elif direction == "e":
+        y += 1
+    elif direction == "s":
+        x += 1
+    return x, y
+
 
 class Dungeon:
     def __init__(self, map_size, x, y):
         self.map_size = map_size
         self.start_room = self.start_point(x, y)
         self.dungeon = self.generate_map(self.map_size)
-        
 
     def start_point(self, x, y):
         return (x, y)
 
-
     def generate_map(self, map_size):
-        room = [] 
-        dungeon = [[room*map_size for i in range(map_size)] for j in range(map_size)]
+        room = []
+        dungeon = [[room * map_size for i in range(map_size)] for j in range(map_size)]
         for i in range(map_size):
             for j in range(map_size):
                 if self.start_room != (i, j):
@@ -27,8 +46,6 @@ class Dungeon:
         for i in range(map_size):
             for j in range(map_size):
                 self.place_content(self.dungeon[i][j])
-
-        
 
     def place_content(self, room):
         content = ["spider", "skeleton", "orc", "troll", "coins", "pouch", "jewelry", "gemstone", "chest"]
@@ -70,10 +87,9 @@ class Dungeon:
                     chest = mt.Chest()
                     room.append(chest)
 
-
-#This function print dungeon for user
+    # This function print dungeon for user
     def print_dungeon(self, x, y):
-        room = "[X]" 
+        room = "[X]"
         dungeon = [[room for i in range(self.map_size)] for j in range(self.map_size)]
         dungeon[x][y] = "[O]"
         for i in range(self.map_size):
@@ -85,5 +101,3 @@ class Dungeon:
                     print(color.color.fg.orange, dungeon[i][j], end=x)
                 else:
                     print(color.color.fg.purple, dungeon[i][j], end=x + color.color.fg.reset)
-
-
