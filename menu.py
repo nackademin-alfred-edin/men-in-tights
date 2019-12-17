@@ -158,9 +158,3 @@ def select_map():
         clear()
         menu.printLogo()
         printtestmap(8)
-
-
-
-def printtestmap(x):
-    x = dungeon_map.Dungeon(x)
-    x.print_dungeon(0,0)
