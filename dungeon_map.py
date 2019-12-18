@@ -1,4 +1,5 @@
-from menu import print_move
+
+from menu import *
 from random import randint
 import monster_treasure as mt
 import color as c
@@ -33,13 +34,16 @@ class Dungeon:
 
     
     def start_point(self):
+        menu.clear()
+        menu.printLogo()
         corner = input("""
                                         Where do you want to start?
                                             1. North west
                                             2. North east
                                             3. South west
                                             4. South east
-    """)
+                                            
+                                            --->""")
         if corner == "1":
             return (0, 0)
         elif corner == "2":
@@ -133,34 +137,3 @@ class Room:
                 if mt.Chest.commonness >= randint(0, 100):
                     chest = mt.Chest()
                     self.treasure.append(chest)
-                 
-             
-def print_move():
-    print("CHOOSE DIRECTION TO GO")
-    print("North- N")
-    print("West- W")
-    print("East- E")
-    print("South- S")
-    direction = ""
-    f = True
-    while f:
-        directions = ["n", "w", "e", "s"]
-        direction = input("--->")
-        
-        if direction.lower() not in directions:
-            print("You have to tape N,W,E or S")
-
-        else:
-            f = False
-    
-    return direction.lower()
-
-   
-        
-ds = Dungeon(8)
-coordinates = ds.start_room
-ds.print_dungeon(coordinates)
-while = True:
-    direction = print_move()
-    coordinates = ds.move(direction, coordinates)
-    ds.print_dungeon(coordinates)
