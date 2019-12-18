@@ -81,79 +81,108 @@ class Dungeon:
         return (x, y)
 
 
-
-
-    def ai_move(self, coordinates):
-        x = coordinates[0]
-        y = coordinates[1]
-        north = x - 1
-        west = y - 1
-        east = y + 1
-        south = x + 1
-        if x == 0 and y == 0:
-            functions = [east, south]
-            index = randint(0, 1)
-            if index == 1:
-                x = functions[index]
-            else:
-                y = functions[index]
-        elif x == 0 and y < self.map_size-1:
-            functions = [west, east, south]
-            index = randint(0,2)
-            if index == 2:
-                x = functions[index]
-            else:
-                y = functions[index] 
-        elif x == 0 and y == self.map_size-1:
-            functions = [ west, south]
-            index = randint(0,1)
-            if index == 1:
-                x = functions[index]
-            else:
-                y = functions[index]
-        elif x < self.map_size-1 and y == self.map_size-1:
-            functions = [north, west, south]
-            index = randint(0,2)
-            if index == 0 or index == 2:
-                x = functions[index]
-            else:
-                y = functions[index]             
-        elif x == self.map_size-1 and y == self.map_size-1:
-            functions = [north, west]
-            index = randint(0,1)
-            if index == 0:
-                x = functions[index]
-            else:
-                y = functions[index]
-        elif x == self.map_size-1 and y < self.map_size-1:
-            functions = [north, east]
-            index = randint(0,1)
-            if index == 0:
-                x = functions[index]
-            else:
-                y = functions[index]
-        elif x == self.map_size-1 and y == 0:
-            functions = [north, east]
-            index = randint(0,1)
-            if index == 0:
-                x = functions[index]
-            else:
-                y = functions[index]
-        elif x < self.map_size-1 and y == 0:
-            functions = [north, east, south]
-            index = randint(0,2)
-            if index == 0 or index == 2:
-                x = functions[index]
-            else:
-                y = functions[index]
+    def check_move(self, x, y): #check room if it was looted
+        if self.dungeon[x][y].empty == False:
+            return False
         else:
-            functions = [north, west, east, south]
-            index = randint(0,3)
-            if index == 0 or index == 3:
-                x = functions[index]
+            return True
+
+
+    def ai_move(self, coordinates):#ai have to choose room that wasn't looted
+        wrong_move = True
+        count = 3
+        while wrong_move:
+            x = coordinates[0]
+            y = coordinates[1]
+            north = x - 1
+            west = y - 1
+            east = y + 1
+            south = x + 1
+            if x == 0 and y == 0:
+                functions = [east, south]
+                index = randint(0, 1)
+                if index == 1:
+                    x = functions[index]
+                else:
+                    y = functions[index]
+                wrong_move = self.check_move(x, y)
+                count -= 1
+            elif x == 0 and y < self.map_size-1:
+                functions = [west, east, south]
+                index = randint(0,2)
+                if index == 2:
+                    x = functions[index]
+                else:
+                    y = functions[index]
+                wrong_move = self.check_move(x, y)
+                count -= 1 
+            elif x == 0 and y == self.map_size-1:
+                functions = [ west, south]
+                index = randint(0,1)
+                if index == 1:
+                    x = functions[index]
+                else:
+                    y = functions[index]
+                wrong_move = self.check_move(x, y)
+                count -= 1
+            elif x < self.map_size-1 and y == self.map_size-1:
+                functions = [north, west, south]
+                index = randint(0,2)
+                if index == 0 or index == 2:
+                    x = functions[index]
+                else:
+                    y = functions[index]
+                wrong_move = self.check_move(x, y)
+                count -= 1             
+            elif x == self.map_size-1 and y == self.map_size-1:
+                functions = [north, west]
+                index = randint(0,1)
+                if index == 0:
+                    x = functions[index]
+                else:
+                    y = functions[index]
+                wrong_move = self.check_move(x, y)
+                count -= 1
+            elif x == self.map_size-1 and y < self.map_size-1:
+                functions = [north, east]
+                index = randint(0,1)
+                if index == 0:
+                    x = functions[index]
+                else:
+                    y = functions[index]
+                wrong_move = self.check_move(x, y)
+                count -= 1
+            elif x == self.map_size-1 and y == 0:
+                functions = [north, east]
+                index = randint(0,1)
+                if index == 0:
+                    x = functions[index]
+                else:
+                    y = functions[index]
+                wrong_move = self.check_move(x, y)
+                count -= 1
+            elif x < self.map_size-1 and y == 0:
+                functions = [north, east, south]
+                index = randint(0,2)
+                if index == 0 or index == 2:
+                    x = functions[index]
+                else:
+                    y = functions[index]
+                wrong_move = self.check_move(x, y)
+                count -= 1
             else:
-                y = functions[index]
+                functions = [north, west, east, south]
+                index = randint(0,3)
+                if index == 0 or index == 3:
+                    x = functions[index]
+                else:
+                    y = functions[index]
+                wrong_move = self.check_move(x, y)
+                count -= 1
+            if count == 0:
+                break
         return (x, y)
+
                 
 
 #Object Room selfgenerate monsters and treasures 
@@ -163,6 +192,7 @@ class Room:
         self.marker = "[ ]"
         self.monsters = []
         self.treasure = []
+        self.empty = False
         self.exit = False
         self.place_content()
 
@@ -219,8 +249,13 @@ while f:
     m.clear_screen()
     coordinates = ds.ai_move(coordinates)
     ds.print_dungeon(coordinates)
-    sleep(1)
+    x = coordinates[0]
+    y = coordinates[1]
+    ds.dungeon[x][y].empty = True
+    
     count -= 1
-    print(count)
+    print(f" {count} ")
+    print()
+    sleep(1)
     if count == 0:
         f = False
