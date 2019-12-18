@@ -1,3 +1,4 @@
+
 from menu import *
 from random import randint
 import monster_treasure as mt
