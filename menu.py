@@ -143,24 +143,6 @@ def AI_Thief():
     sleep(2)
 
 
-def AI_choice_menu():
-    print("""
-                            Start by choosing your AI hero:
-                                                1. AI Knight
-                                                2. AI Wizard
-                                                3. AI Thief
-    \n""")
-    choice = input("""   
-                                        Enter number for AI Hero: """)
-    choice_menu =  {'1': AI_Knight,
-                    '2': AI_Wizard,
-                    '3': AI_Thief}
-    if choice not in choice_menu.keys():
-        print("Please choose a hero ")
-    else:
-        choice_menu[choice]()
-
-
 # menu to select hero
 def hero_menu():
     print("""
@@ -197,6 +179,15 @@ def clear():
 #############################################################################################################
 
 # menu to select map size
+def small():
+    return 4
+
+def medium():
+    return 5
+
+def large():
+    return 8
+
 def select_map():
     size = input("""
                                         Select size of the map:
@@ -205,9 +196,16 @@ def select_map():
                                             3. Large (8x8)
 
                                             --->""")
-    if size == "1":
-        return 4
-    elif size == "2":
-        return 5
-    elif size == "3":
-        return 8
+    choice_menu = { '1': small(),
+                    '2': medium(),
+                    '3': large()}
+    if size not in choice_menu.keys():
+        menu.clear()
+        menu.printLogo()
+        print("Please pick a number")
+        sleep(0.5)
+        size = 0
+        select_map()
+    else:
+        return choice_menu[size]
+    
