@@ -1,23 +1,25 @@
 import menu
-import dungeon_map
+from dungeon_map import *
+from Heroes import *
+from time import sleep
 
 
 def print_move():
     direction = ""
     f = True
     while f:
-        directions = ["n", "w", "e", "s"]
+        directions = ["w", "a", "s", "d"]
         direction = input("""
                                     CHOOSE DIRECTION TO GO
-                                            North- N
-                                            West- W
-                                            East- E
-                                            South- S
+                                            Up - W
+                                            Left - A
+                                            Down - S
+                                            Right - D
 
                                             --->""")
         
         if direction.lower() not in directions:
-            print("You have to tape N,W,E or S")
+            print("You have to type W, A, S or D")
 
         else:
             f = False
@@ -29,11 +31,11 @@ def game():
     menu.startScreen()
     menu.clear()
     menu.printLogo()
-    menu.hero_menu()
+    hero = menu.hero_menu()
     menu.clear()
     menu.printLogo()
 
-    ds = dungeon_map.Dungeon(menu.select_map())
+    ds = Dungeon(menu.select_map())
     coordinates = ds.start_room
     ds.print_dungeon(coordinates)
     while True:
@@ -42,7 +44,7 @@ def game():
         ds.print_dungeon(coordinates)
         direction = print_move()
         coordinates = ds.move(direction, coordinates)
-        
-
+        check(hero, ds, coordinates)
+        input()
 
 game()

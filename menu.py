@@ -2,8 +2,8 @@ import json
 from json import *
 import os
 from time import sleep
-import menu
 import dungeon_map
+import Heroes
 
 
 #################################################################################################################
@@ -56,13 +56,6 @@ def startScreen():
     return username
 
 
-def clear_screen():
-    if name == 'nt':
-        _ = system('cls')
-    else:
-        _ = system('clear')
-
-
 def main():
     user = startScreen()
     check_if_exists(username=user)
@@ -91,30 +84,35 @@ def printLogo():
 
 def Knight():
     clear()
-    menu.printLogo()
+    printLogo()
+    
+    hero = Heroes.Knight()
     print("""
                                         You've chosen 'Knight'!
     """)
     sleep(2)
+    return hero
 
 def Wizard():
     clear()
-    menu.printLogo()
+    printLogo()
+    hero = Heroes.Wizard()
     print("""
                                         You've chosen 'Wizard'!
     """)
     sleep(2)
+    return hero
 
 def Thief():
     clear()
-    menu.printLogo()
+    printLogo()
+    hero = Heroes.Thief()
     print("""
                                         You've chosen 'Thief'!
     """)
     sleep(2)
+    return hero
 
-def Saved():
-    print("Select Saved Hero: ")
 
 
 def AI_Knight():
@@ -124,6 +122,7 @@ def AI_Knight():
                                         AI have chosen 'AI Knight'!
         """)
     sleep(2)
+    
 
 def AI_Wizard():
     clear()
@@ -141,24 +140,6 @@ def AI_Thief():
                                         AI have chosen 'AI Thief'!
             """)
     sleep(2)
-
-
-def AI_choice_menu():
-    print("""
-                            Start by choosing your AI hero:
-                                                1. AI Knight
-                                                2. AI Wizard
-                                                3. AI Thief
-    \n""")
-    choice = input("""   
-                                        Enter number for AI Hero: """)
-    choice_menu =  {'1': AI_Knight,
-                    '2': AI_Wizard,
-                    '3': AI_Thief}
-    if choice not in choice_menu.keys():
-        print("Please choose a hero ")
-    else:
-        choice_menu[choice]()
 
 
 # menu to select hero
@@ -185,10 +166,9 @@ def hero_menu():
     if choice not in choice_menu.keys():
         print("Please choose a hero ")
     else:
-        choice_menu[choice]()
+        return choice_menu[choice]()
 
 
-# clear screen function
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -197,6 +177,15 @@ def clear():
 #############################################################################################################
 
 # menu to select map size
+def small():
+    return 4
+
+def medium():
+    return 5
+
+def large():
+    return 8
+
 def select_map():
     size = input("""
                                         Select size of the map:
@@ -205,9 +194,16 @@ def select_map():
                                             3. Large (8x8)
 
                                             --->""")
-    if size == "1":
-        return 4
-    elif size == "2":
-        return 5
-    elif size == "3":
-        return 8
+    choice_menu = { '1': small(),
+                    '2': medium(),
+                    '3': large()}
+    if size not in choice_menu.keys():
+        menu.clear()
+        menu.printLogo()
+        print("Please pick a number")
+        sleep(0.5)
+        size = 0
+        select_map()
+    else:
+        return choice_menu[size]
+    
