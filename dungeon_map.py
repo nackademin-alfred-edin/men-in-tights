@@ -1,3 +1,4 @@
+from menu import *
 from random import randint
 import monster_treasure as mt
 import Heroes
@@ -30,13 +31,16 @@ class Dungeon:
         return dungeon
 
     def start_point(self):
+        menu.clear()
+        menu.printLogo()
         corner = input("""
                                         Where do you want to start?
                                             1. North west
                                             2. North east
                                             3. South west
                                             4. South east
-    """)
+                                            
+                                            --->""")
         if corner == "1":
             return (0, 0)
         elif corner == "2":

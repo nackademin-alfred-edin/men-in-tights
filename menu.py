@@ -10,13 +10,21 @@ import dungeon_map
 
 # menu to type in name and save/load file
 def check_if_exists(username):
-    with open('game.json', 'a+') as f:
+    with open('game.json', 'r+') as f:
         playerName = json.load(f)
         keys = playerName.keys()
         if username in keys:
-            print(f"Welcome bacl {username}! You have {username[1]} points")
+            clear()
+            printLogo()
+            print(f"""
+                                Welcome back {username}! You have {playerName[username]} points""")
+            sleep(2)  
         else:
-            print("FALSE")
+            clear()
+            printLogo()
+            print(f"""
+                                Welcome {username} to Dungeon Run!! Lets begin""")
+            sleep(2)
             add_to_file(username)
 
 
@@ -43,7 +51,8 @@ def startScreen():
                      """
                                     WELCOME TO DUNGEON RUN!
 
-                                     ENTER PLAYER NAME :""")
+                                       Enter username:""")
+    check_if_exists(username)
     return username
 
 
@@ -86,7 +95,7 @@ def Knight():
     print("""
                                         You've chosen 'Knight'!
     """)
-    sleep(1)
+    sleep(2)
 
 def Wizard():
     clear()
@@ -94,7 +103,7 @@ def Wizard():
     print("""
                                         You've chosen 'Wizard'!
     """)
-    sleep(1)
+    sleep(2)
 
 def Thief():
     clear()
@@ -102,27 +111,59 @@ def Thief():
     print("""
                                         You've chosen 'Thief'!
     """)
-    sleep(1)
+    sleep(2)
 
 def Saved():
     print("Select Saved Hero: ")
 
 
+def AI_Knight():
+    clear()
+    printLogo()
+    print("""
+                                        AI have chosen 'AI Knight'!
+        """)
+    sleep(2)
+
+def AI_Wizard():
+    clear()
+    printLogo()
+    print("""
+                                        AI have chosen 'AI Wizard'!
+            """)
+    sleep(2)
+
+
+def AI_Thief():
+    clear()
+    printLogo()
+    print("""
+                                        AI have chosen 'AI Thief'!
+            """)
+    sleep(2)
+
+
 # menu to select hero
 def hero_menu():
     print("""
-                        Start by choosing your hero, or load a previous saved hero
+                                    Start by choosing your hero
                                             1. Knight
                                             2. Wizard
                                             3. Thief
-                                            4. Load Saved Hero
-\n""")
+
+                                Or load an AI to play the game for you!
+                                            4. AI Knight
+                                            5. AI Wizard
+                                            6. AI Thief    
+""")
     choice = input("""   
-                                        Enter number for Hero: """)
+                                            ---> """)
     choice_menu =  {'1': Knight,
                     '2': Wizard,
                     '3': Thief,
-                    '4': Saved}
+                    '4': AI_Knight,
+                    '5': AI_Wizard,
+                    '6': AI_Thief}
     if choice not in choice_menu.keys():
         print("Please choose a hero ")
     else:
@@ -138,23 +179,33 @@ def clear():
 #############################################################################################################
 
 # menu to select map size
+def small():
+    return 4
+
+def medium():
+    return 5
+
+def large():
+    return 8
+
 def select_map():
     size = input("""
-                                Select size of the map:
-                                        1. Small (4x4)
-                                        2. Medium (5x5)
-                                        3. Large (8x8)
+                                        Select size of the map:
+                                            1. Small (4x4)
+                                            2. Medium (5x5)
+                                            3. Large (8x8)
 
-                                        """)
-    if size == "1":
-        clear()
+                                            --->""")
+    choice_menu = { '1': small(),
+                    '2': medium(),
+                    '3': large()}
+    if size not in choice_menu.keys():
+        menu.clear()
         menu.printLogo()
-        printtestmap(4)
-    elif size == "2":
-        clear()
-        menu.printLogo()
-        printtestmap(5)
-    elif size == "3":
-        clear()
-        menu.printLogo()
-        printtestmap(8)
+        print("Please pick a number")
+        sleep(0.5)
+        size = 0
+        select_map()
+    else:
+        return choice_menu[size]
+    
