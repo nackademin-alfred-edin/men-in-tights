@@ -1,5 +1,6 @@
 import menu
 from random import randint
+from sys import exit
 import monster_treasure as mt
 import Heroes
 import battle
@@ -14,7 +15,17 @@ class Dungeon:
         self.generate_exit()
 
     def generate_exit(self):
-        pass
+        exit_list = [(0, 0), (0, self.map_size-1), (self.map_size-1, 0), (self.map_size-1, self.map_size-1)]
+        for i in exit_list:
+            if self.start_room == i:
+                x = self.start_room[0]
+                y = self.start_room[1]
+                self.dungeon[x][y].exit = True
+                exit_list.remove(i)
+        index = randint(0, 2)
+        x = exit_list[index][0]
+        y = exit_list[index][1]
+        self.dungeon[x][y].exit = True
 
     def generate_map(self):
         dungeon = [[] for i in range(self.map_size)]
@@ -183,6 +194,25 @@ def check(hero, ds, coordinates):  # Calls attack if there're monsters in the ro
     t = ds.dungeon[x][y].treasure
 
     return m, t
+
+def exit_check(hero, ds, coordinates, username):
+    if ds.dungeon[coordinates[0]][coordinates[1]].exit == True:
+        response = input("Do you wanna exit?    y / n\n")
+        if response == "y":
+            game_over(hero, username)
+        else:
+            pass
+
+def game_over(hero, username):
+    if hero.endurance == 0:
+        print(f"GAME OVER\nYOU'VE DIED\nSaved {username} and {hero.points}g to file")
+        menu.save_points(username, hero.points)
+        exit()
+    else:
+        print(f"Congratulations you've surived the Dungeon Run!\nSaved {username} and {hero.points}g to file")
+        menu.save_points(username, hero.points)
+        exit()
+
 
     #if ds.dungeon[x][y].monsters:  # True if sequence/list contains values
      #   print(f"Monsters: {ds.dungeon[x][y].monsters}\n{ds.dungeon[x][y].treasure}")

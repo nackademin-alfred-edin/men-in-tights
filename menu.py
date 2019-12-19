@@ -38,12 +38,13 @@ def add_to_file(username):
         f.close()
 
 
-def add_points(name, points):
-    with open('game.json', "r") as data:
-        json_data = json.load(data)
-        json_data[name] += points
-    with open('game.json', "w") as data:
-        data.write(dumps(json_data))
+def save_points(username, points):
+    with open('game.json', 'r+') as file:
+        players = json.load(file)
+        new_user = {username: points}
+        players.update(new_user)
+    with open('game.json', 'w') as file:
+        json.dump(players, file)
 
 
 def startScreen():
@@ -89,7 +90,6 @@ def Knight():
     hero = Heroes.Knight()
     print("""
                                         You've chosen 'Knight'!
-
                                                                .-.
                                                               {{#}}
                                               {}               8@8
@@ -153,6 +153,25 @@ def Thief():
     hero = Heroes.Thief()
     print("""
                                         You've chosen 'Thief'!
+                                              _..__
+                                            .'  I  '.
+                                            |.-"'"-.|
+                                           _;.-"'"-.;_
+                                       _.-' _..-.-.._ '-._
+                                      ';--.-(_o_I_o_)-.--;'
+                                     `. | |  | |  | | .`
+                                         `-\|  | |  |/-'
+                                            |  | |  |
+                                            |  \_/  |
+                                         _.'; ._._. ;'._
+                                    _.-'`; | \  -  / | ;'-.
+                                 .' :  /  |  |   |  |  \  '.
+                                /   : /__ \  \___/  / __\ : `.
+                               /    |   /  '._/_\_.'  \   :   `\ 
+                              /     .  `---;""''"'-----`  .     \ 
+                             /      |      |()    ()      |      \ 
+                            /      /|      |              |\      \ 
+                           /      / |      |()    ()      | \      \ 
     """)
     sleep(2)
     return hero
@@ -242,8 +261,8 @@ def select_map():
                     '2': medium(),
                     '3': large()}
     if size not in choice_menu.keys():
-        menu.clear()
-        menu.printLogo()
+        clear()
+        printLogo()
         print("Please pick a number")
         sleep(0.5)
         size = 0
@@ -254,9 +273,8 @@ def select_map():
 
 ########################################################################################################################
 
-def attack_menu(hero, ds, sort, coordinates):
-    x = coordinates[0]
-    y = coordinates[1]
+def attack_menu():
+
     choice = input("""
                                                \|||/
                                                (o o)
@@ -275,19 +293,21 @@ def attack_menu(hero, ds, sort, coordinates):
         """)
     else:
         if choice_menu[choice] == "attack":
-            return battle.attack(hero, sort(ds.dungeon[x][y].monsters))
+            return "attack"#battle.attack(hero, sort(ds.dungeon[x][y].monsters))
         elif choice_menu[choice] == "escape":
-            return battle.escape(hero, sort(ds.dungeon[x][y].monsters))
+            return "escape"#battle.escape(hero, sort(ds.dungeon[x][y].monsters))
 
 
 ##################################################################################################################
 
 def roll_dice():
     print("""
-                                      .-------.    ______
-                                     /   o   /|   /\     \  
-                                    /_______/o|  /o \  o  \ 
-                                    | o     | | /   o\_____\ 
-                                    |   o   |o/ \o   /o    /
-                                    |     o |/   \ o/  o  /
-                                    '-------'     \/____o/""")    
+                                           .-------.    ______
+                                          /   o   /|   /\     \  
+                                         /_______/o|  /o \  o  \ 
+                                         | o     | | /   o\_____\ 
+                                         |   o   |o/ \o   /o    /
+                                         |     o |/   \ o/  o  /
+                                         '-------'     \/____o/
+                                                
+                                                Rolling...""")    
