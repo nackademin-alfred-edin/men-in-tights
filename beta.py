@@ -45,8 +45,7 @@ def game():
         
         check_room = check(hero, ds, coordinates)
         
-        if check_room[0]:   
-            print(check_room[0])
+        if check_room[0]:
             return_value = menu.attack_menu()
             x = coordinates[0]
             y = coordinates[1]
@@ -57,12 +56,10 @@ def game():
             elif return_value == "escape":
                 battle.escape(hero, sort(ds.dungeon[x][y].monsters))
                 if_escape = False
-            
-            #print(check_room[1])
+
         if check_room[1]:
-            print(check_room[1])
             if if_escape == True:
-                hero.points += coinCount(check_room[1])  # Adds sum of treasures to Hero's attribute
+                hero.points += coinCount(check_room[1])  # Adds sum of treasures to Hero's attribute   
                 print(f"Collected so far: {hero.points}g")
                 ds.dungeon[coordinates[0]][coordinates[1]].treasure = [] #Clear treasure from Room Object
                 ds.dungeon[coordinates[0]][coordinates[1]].marker = '[X]'
