@@ -212,21 +212,3 @@ def game_over(hero, username):
         print(f"Congratulations you've surived the Dungeon Run!\nSaved {username} and {hero.points}g to file")
         menu.save_points(username, hero.points)
         exit()
-
-
-    #if ds.dungeon[x][y].monsters:  # True if sequence/list contains values
-     #   print(f"Monsters: {ds.dungeon[x][y].monsters}\n{ds.dungeon[x][y].treasure}")
-        #choice = input("1. Attack\n2. Escape")
-        #if choice == '1':
-        #    battle.attack(hero, sort(ds.dungeon[x][y].monsters))
-        #elif choice == '2':
-         #   battle.escape(hero, sort(ds.dungeon[x][y].monsters))
-
-    #if ds.dungeon[x][y].treasure:  # True if sequence/list contains values
-     #   print(f"There're treasures!\n{ds.dungeon[x][y].treasure}")
-      #  coinCount(ds.dungeon[x][y].treasure)
-    #else:
-     #   print("Room empty!")
-        # TODO Room.empty = True
-        # TODO Room.marker = "[Empty]"
-

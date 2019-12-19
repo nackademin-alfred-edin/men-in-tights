@@ -3,9 +3,10 @@ import random
 import time
 import Heroes
 import menu
+import dungeon_map
 
 
-def attack(hero, list_of_monsters): #TODO Endurance to be change to Stamina to match other changes
+def attack(hero, list_of_monsters, username): #TODO Endurance to be change to Stamina to match other changes
     menu.clear()
     menu.printLogo()
 
@@ -148,10 +149,10 @@ def attack(hero, list_of_monsters): #TODO Endurance to be change to Stamina to m
 
             if hero.endurance == 0:
                 go = False
-                #game_over()
+                dungeon_map.game_over(hero, username)
 
 
-def escape(hero, list_of_monsters):
+def escape(hero, list_of_monsters, username):
 
     escape_chance = hero.agility * 10
     if isinstance(hero, Heroes.Wizard): #Wizard Special Ability
@@ -170,4 +171,4 @@ def escape(hero, list_of_monsters):
     else:
         print("Roll Failed! \nCannot escape!!!")
         time.sleep(2)
-        attack(hero, list_of_monsters)
+        attack(hero, list_of_monsters, username)

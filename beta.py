@@ -50,11 +50,11 @@ def game():
             x = coordinates[0]
             y = coordinates[1]
             if return_value == "attack":
-                battle.attack(hero, sort(ds.dungeon[x][y].monsters))
+                battle.attack(hero, sort(ds.dungeon[x][y].monsters), username)
                 ds.dungeon[coordinates[0]][coordinates[1]].monsters = [] #Clear monster from Room Object
                 ds.dungeon[coordinates[0]][coordinates[1]].marker = '[X]'
             elif return_value == "escape":
-                battle.escape(hero, sort(ds.dungeon[x][y].monsters))
+                battle.escape(hero, sort(ds.dungeon[x][y].monsters), username)
                 if_escape = False
 
         if check_room[1]:
