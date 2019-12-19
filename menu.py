@@ -38,12 +38,13 @@ def add_to_file(username):
         f.close()
 
 
-def add_points(name, points):
-    with open('game.json', "r") as data:
-        json_data = json.load(data)
-        json_data[name] += points
-    with open('game.json', "w") as data:
-        data.write(dumps(json_data))
+def save_points(username, points):
+    with open('game.json', 'r+') as file:
+        players = json.load(file)
+        new_user = {username: points}
+        players.update(new_user)
+    with open('game.json', 'w') as file:
+        json.dump(players, file)
 
 
 def startScreen():
@@ -89,7 +90,6 @@ def Knight():
     hero = Heroes.Knight()
     print("""
                                         You've chosen 'Knight'!
-
                                                                .-.
                                                               {{#}}
                                               {}               8@8
@@ -153,6 +153,25 @@ def Thief():
     hero = Heroes.Thief()
     print("""
                                         You've chosen 'Thief'!
+                                              _..__
+                                            .'  I  '.
+                                            |.-"'"-.|
+                                           _;.-"'"-.;_
+                                       _.-' _..-.-.._ '-._
+                                      ';--.-(_o_I_o_)-.--;'
+                                     `. | |  | |  | | .`
+                                         `-\|  | |  |/-'
+                                            |  | |  |
+                                            |  \_/  |
+                                         _.'; ._._. ;'._
+                                    _.-'`; | \  -  / | ;'-.
+                                 .' :  /  |  |   |  |  \  '.
+                                /   : /__ \  \___/  / __\ : `.
+                               /    |   /  '._/_\_.'  \   :   `\ 
+                              /     .  `---;""''"'-----`  .     \ 
+                             /      |      |()    ()      |      \ 
+                            /      /|      |              |\      \ 
+                           /      / |      |()    ()      | \      \ 
     """)
     sleep(2)
     return hero
