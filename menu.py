@@ -254,9 +254,8 @@ def select_map():
 
 ########################################################################################################################
 
-def attack_menu(hero, ds, sort, coordinates):
-    x = coordinates[0]
-    y = coordinates[1]
+def attack_menu():
+
     choice = input("""
                                                \|||/
                                                (o o)
@@ -275,9 +274,9 @@ def attack_menu(hero, ds, sort, coordinates):
         """)
     else:
         if choice_menu[choice] == "attack":
-            return battle.attack(hero, sort(ds.dungeon[x][y].monsters))
+            return "attack"#battle.attack(hero, sort(ds.dungeon[x][y].monsters))
         elif choice_menu[choice] == "escape":
-            return battle.escape(hero, sort(ds.dungeon[x][y].monsters))
+            return "escape"#battle.escape(hero, sort(ds.dungeon[x][y].monsters))
 
 
 ##################################################################################################################
