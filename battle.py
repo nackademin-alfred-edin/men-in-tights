@@ -8,13 +8,12 @@ import menu
 def attack(hero, list_of_monsters): #TODO Endurance to be change to Stamina to match other changes
     menu.clear()
     menu.printLogo()
-    
-    #for monster in range(len(list_of_monsters)):
+
     while list_of_monsters:
         input(f"""
-                                        BATTLE ENTERED AGAINST A {list_of_monsters[0].name}!
+                                You charge heroically towards the {list_of_monsters[0].name}!
 
-                                          Press any key to roll dice""")
+                                        Press any key to enter battle""")
         menu.clear()
         menu.printLogo()
         print("""           
@@ -24,15 +23,10 @@ def attack(hero, list_of_monsters): #TODO Endurance to be change to Stamina to m
         time.sleep(1)
         menu.clear()
         menu.printLogo()
-       # print("""
-        #                                                            (User turn)""")
 
         go = True
         shield_block = True
         while go:
-            #print(f"""
-             #       {list_of_monsters[0].name} health: {list_of_monsters[0].endurance}             VS              Your health: {hero.endurance}""")
-            #time.sleep(3)
             if die.die(hero.attack) > die.die(list_of_monsters[0].agility):
                 if isinstance(hero, Heroes.Thief) and (random.randint(0, 100) <= 25): #Thief Special Ability
                     print("""
@@ -47,23 +41,17 @@ def attack(hero, list_of_monsters): #TODO Endurance to be change to Stamina to m
                     
                     print("""
 
-                                Succesful roll! Monster takes 1 damage
+                                Successfull roll! Monster takes 1 damage
+                                                Nice hit!
                     """)
                     list_of_monsters[0].endurance -= 1
                     
                     time.sleep(2)
-                    menu.clear()
-                    menu.printLogo()
-                    print("""           
-                                                                    (User turn)""")
-                    print(f"""
-                    {list_of_monsters[0].name} health: {list_of_monsters[0].endurance}             VS              Your health: {hero.endurance}""")
-                    
                     if list_of_monsters[0].endurance <= 0:
                         time.sleep(0.5)
                         print(f"""
                                             {list_of_monsters[0].name} slain!
-                                                GG WP""")
+                                               GG WP""")
                         del list_of_monsters[0] 
                         input("""  
                                     press any key to continue""")
@@ -71,42 +59,89 @@ def attack(hero, list_of_monsters): #TODO Endurance to be change to Stamina to m
                         menu.printLogo()
                         go = False
                         break
+                    else:
+                        input(f"""
+
+                                     The {list_of_monsters[0].name} swings at you!
+
+                                   Press any key to defend yourself!""")
+                    menu.clear()
+                    menu.printLogo()
+                    print("""
+                    (Enemy turn)""")
+                    menu.roll_dice()
+                    time.sleep(1)
 
             else:
                 print("""           
-                                                                (User turn)""")
+                                                                    (User turn)""")
                 print("""
-                                            Your attack missed!""")
+                                        Your attack missed!""")
 
             
             if die.die(list_of_monsters[0].attack) > die.die(hero.agility):
+                #menu.clear()
+                #menu.printLogo
+                print("""
+                    (Enemy turn)""")
+                menu.roll_dice()
+                time.sleep(2)
                 menu.clear()
-                menu.printLogo
-                print("Enemy turn"  )
+                menu.printLogo()
                 print(f"""
                     {list_of_monsters[0].name} health: {list_of_monsters[0].endurance}             VS              Your health: {hero.endurance}""")
-                time.sleep(2)
-
+                
+                time.sleep(1)
                 print("""
-                                            Monster attacks you for 1 damage!""")
-
+                                     Monster attacks you for 1 damage!""")
                 time.sleep(2)
+                menu.clear()
+                menu.printLogo()
                 if isinstance(hero, Heroes.Knight) and shield_block == True: #Knight special abilitie
                     print("""
-                                            First attack blocked""")
+                                    First attack blocked by your shield!""")
                     shield_block = False
                 else:
                     hero.endurance -= 1
-                    print(f"Health after attack {hero.endurance}")
+                    print(f"""
+                    {list_of_monsters[0].name} health: {list_of_monsters[0].endurance}             VS              Your health: {hero.endurance}""")
+                    input("""
+                                      OUCH! That hurt...
+
+                              Press any key to start your turn""")
+                    menu.clear()
+                    menu.printLogo()
+                    print("""           
+                                                                (User turn)""")
+                    menu.roll_dice()
+                    time.sleep(1)
+                    menu.clear()
+                    menu.printLogo()
+        
             elif list_of_monsters[0].endurance > 0:
                 menu.clear()
                 menu.printLogo()
-                print("""Enemy turn""")
+                print("""
+                    (Enemy turn)""")
                 print(f"""
                     {list_of_monsters[0].name} health: {list_of_monsters[0].endurance}             VS              Your health: {hero.endurance}""")
                 print("""
-                                            Monster attack missed""")
-                input()
+                                        Monster attack missed
+                        """)
+                time.sleep(1.5)
+                input("""
+                                        That was a close one!
+
+                                    Press any key to start your turn""")
+                menu.clear()
+                menu.printLogo()
+                print("""           
+                                                                (User turn)""")
+                menu.roll_dice()
+                time.sleep(1)
+                menu.clear()
+                menu.printLogo()
+
             if hero.endurance == 0:
                 go = False
                 #game_over()
