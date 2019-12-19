@@ -97,7 +97,7 @@ def attack(hero, list_of_monsters): #TODO Endurance to be change to Stamina to m
                     shield_block = False
                 else:
                     hero.endurance -= 1
-                p#rint(f"Health after attack {hero.endurance}")
+                    print(f"Health after attack {hero.endurance}")
             elif list_of_monsters[0].endurance > 0:
                 menu.clear()
                 menu.printLogo()
