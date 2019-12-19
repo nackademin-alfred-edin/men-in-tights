@@ -242,8 +242,8 @@ def select_map():
                     '2': medium(),
                     '3': large()}
     if size not in choice_menu.keys():
-        menu.clear()
-        menu.printLogo()
+        clear()
+        printLogo()
         print("Please pick a number")
         sleep(0.5)
         size = 0
@@ -284,10 +284,12 @@ def attack_menu(hero, ds, sort, coordinates):
 
 def roll_dice():
     print("""
-                                      .-------.    ______
-                                     /   o   /|   /\     \  
-                                    /_______/o|  /o \  o  \ 
-                                    | o     | | /   o\_____\ 
-                                    |   o   |o/ \o   /o    /
-                                    |     o |/   \ o/  o  /
-                                    '-------'     \/____o/""")    
+                                           .-------.    ______
+                                          /   o   /|   /\     \  
+                                         /_______/o|  /o \  o  \ 
+                                         | o     | | /   o\_____\ 
+                                         |   o   |o/ \o   /o    /
+                                         |     o |/   \ o/  o  /
+                                         '-------'     \/____o/
+                                                
+                                                Rolling...""")    
