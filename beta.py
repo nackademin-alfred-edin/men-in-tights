@@ -39,12 +39,27 @@ def game():
     coordinates = ds.start_room
     ds.print_dungeon(coordinates)
     while True:
+        if_escape = True
         menu.clear()
         menu.printLogo()
+        
+        check_room = check(hero, ds, coordinates)
+        
+        if check_room[0]:   
+            print(check_room[0])
+            menu.attack_menu(hero, ds, sort, coordinates)
+
+            if_escape = False
+            
+            #print(check_room[1])
+        elif check_room[1]:
+            print(check_room[1])
+            if if_escape == True:
+                coinCount(check_room[1])
+
         ds.print_dungeon(coordinates)
         direction = print_move()
         coordinates = ds.move(direction, coordinates)
-        check(hero, ds, coordinates)
-        input()
+        #input()
 
 game()

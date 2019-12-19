@@ -1,9 +1,9 @@
 import json
-from json import *
 import os
 from time import sleep
 import dungeon_map
 import Heroes
+import battle
 
 
 #################################################################################################################
@@ -89,6 +89,32 @@ def Knight():
     hero = Heroes.Knight()
     print("""
                                         You've chosen 'Knight'!
+
+                                                               .-.
+                                                              {{#}}
+                                              {}               8@8
+                                            .::::.             888
+                                        @\\/W\/\/W\//@         8@8
+                                         \\/^\/\/^\//     _    )8(    _
+                                          \_O_{}_O_/     (@)__/8@8\__(@)
+                                     ____________________ `~"-=):(=-"~`
+                                    |<><><>  |  |  <><><>|     |.|
+                                    |<>      |  |      <>|     |S|
+                                    |<>      |  |      <>|     |'|
+                                    |<>   .--------.   <>|     |.|
+                                    |     |   ()   |     |     |P|
+                                    |_____| (O\/O) |_____|     |'|
+                                    |     \   /\   /     |     |.|
+                                    |------\  \/  /------|     |U|
+                                    |       '.__.'       |     |'|
+                                    |        |  |        |     |.|
+                                    :        |  |        :     |N|
+                                     \       |  |       /      |'|
+                                      \<>    |  |    <>/       |.|
+                                       \<>   |  |   <>/        |K|
+                                        `\<> |  | <>/'         |'|
+                                          `-.|__|.-`           \ /
+                                                                ^
     """)
     sleep(2)
     return hero
@@ -99,6 +125,24 @@ def Wizard():
     hero = Heroes.Wizard()
     print("""
                                         You've chosen 'Wizard'!
+                                                    ,---.
+                                                   /    |
+                                                  /     |
+                                                 /      |
+                                                /   W   |
+                                           ___,'        |
+                                         <  -'          :   >
+                                         `-.__..--'``-,_\_.-`
+                                             |o/ ` o,.)_`>
+                                             :/ `     ||/)
+                                             (_.).__,-` |\
+                                             /( `.``   `| :
+                                             \'`-.)  `  ; ;
+                                             | `       /-<
+                                             |     `  /   `.
+                            ,-_-..____      /|  `    :__..-'\
+                            /,'-.__\\  ``-./ :`      ;       \
+                            `\ `\  `\\  \ :  (   `  /  ,   `. \
     """)
     sleep(2)
     return hero
@@ -207,3 +251,30 @@ def select_map():
     else:
         return choice_menu[size]
     
+
+########################################################################################################################
+
+def attack_menu(hero, ds, sort, coordinates):
+    x = coordinates[0]
+    y = coordinates[1]
+    choice = input("""
+                                               \|||/
+                                               (o o)
+--------------------------------------------ooO-(_)-Ooo-----------------------------------------
+                        A monster is lurking in this room, do you fight or flight!?
+                                            1. Attack
+                                            2. Escape
+                                            
+                                            --->""")
+    choice_menu = { '1': "attack",
+                    '2': "escape"
+                    }
+    if choice not in choice_menu.keys():
+        print("""
+                                        Please type in 1 or 2
+        """)
+    else:
+        if choice_menu[choice] == "attack":
+            return battle.attack(hero, sort(ds.dungeon[x][y].monsters))
+        elif choice_menu[choice] == "escape":
+            return battle.escape(hero, sort(ds.dungeon[x][y].monsters))
