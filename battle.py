@@ -8,13 +8,22 @@ import menu
 def attack(hero, list_of_monsters): #TODO Endurance to be change to Stamina to match other changes
     menu.clear()
     menu.printLogo()
-    print("""
-                                            BATTLE ENTERED!
-""")
+    
     for monster in range(len(list_of_monsters)):
+        input(f"""
+                                        BATTLE ENTERED AGAINST A {list_of_monsters[monster].name}!
+
+                                            Press any key to roll dice""")
+        menu.clear()
+        menu.printLogo()
+        
+        menu.roll_dice()
+        time.sleep(1)
+        menu.clear()
+        menu.printLogo()
+
         go = True
-        #input("""
-         #                                   ROLL DICE""")
+        
         shield_block = True
         while go:
             print(f"""
@@ -22,6 +31,14 @@ def attack(hero, list_of_monsters): #TODO Endurance to be change to Stamina to m
             time.sleep(0.8)
 
             if die.die(hero.attack) > die.die(list_of_monsters[monster].agility):
+                if isinstance(hero, Heroes.Thief) and (random.randint(0, 100) <= 25): #Thief Special Ability
+                    print("""
+                                    As Thief you inflicted Critical Damage! Causing 2 Damage!""")
+                    list_of_monsters[monster].endurance -= 2
+                else:
+                    print("""
+                                    Succesful roll! Monster takes 1 damage""")
+                    list_of_monsters[monster].endurance -= 1
                 # If Hero's attack is larger than monster's agility, inflict 1 dmg
                 print("""
                                     Succesful roll! Monster takes 1 damage""")
@@ -47,7 +64,7 @@ def attack(hero, list_of_monsters): #TODO Endurance to be change to Stamina to m
                 else:
                     hero.endurance -= 1
                 print(f"Health after attack {hero.endurance}")
-            else:
+            elif list_of_monsters[monster].endurance > 0:
                 print("Monster attack missed")
             if hero.endurance == 0:
                 go = False
@@ -55,12 +72,20 @@ def attack(hero, list_of_monsters): #TODO Endurance to be change to Stamina to m
 
 
 def escape(hero, list_of_monsters):
+
     escape_chance = hero.agility * 10
+    if isinstance(hero, Heroes.Wizard): #Wizard Special Ability
+        escape_chance = 80
+
     print(f"Your chance to escape: {escape_chance}%")
+
     var = random.randint(0, 100)
+    
     print(f"Probability: {var}")
+    
     if var <= escape_chance:
         print(f"Roll Succes! \nYou've escaped!")
+    
         #TODO Go back to previous room
     else:
         print("Roll Failed! \nCannot escape!!!")

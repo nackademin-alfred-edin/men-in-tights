@@ -56,6 +56,9 @@ def game():
             print(check_room[1])
             if if_escape == True:
                 coinCount(check_room[1])
+        else:
+            print("""
+                                            Room is empty""")
 
         ds.print_dungeon(coordinates)
         direction = print_move()
