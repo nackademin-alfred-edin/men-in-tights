@@ -31,7 +31,17 @@ class Dungeon:
             return (self.map_size-1, self.map_size -1)
 
     def generate_exit(self):
-        pass
+        exit_list = [(0, 0), (0, self.map_size-1), (self.map_size-1, 0), (self.map_size-1, self.map_size-1)]
+        for i in exit_list:
+            if self.start_room == i:
+                x = self.start_room[0]
+                y = self.start_room[1]
+                self.dungeon[x][y].exit = True
+                exit_list.remove(i)
+        index = randint(0, 2)
+        x = exit_list[index][0]
+        y = exit_list[index][1]
+        self.dungeon[x][y].exit = True
 
 
     def generate_map(self):
@@ -242,20 +252,7 @@ class Room:
 ds = Dungeon(4)
 coordinates = ds.start_room
 ds.print_dungeon(coordinates)
-f = True
-count = 10
-sleep(2)
-while f:
-    m.clear_screen()
-    coordinates = ds.ai_move(coordinates)
-    ds.print_dungeon(coordinates)
-    x = coordinates[0]
-    y = coordinates[1]
-    ds.dungeon[x][y].empty = True
-    
-    count -= 1
-    print(f" {count} ")
-    print()
-    sleep(1)
-    if count == 0:
-        f = False
+print(ds.dungeon[0][0].exit)
+print(ds.dungeon[0][3].exit)
+print(ds.dungeon[3][3].exit)
+print(ds.dungeon[3][0].exit)
