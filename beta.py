@@ -38,6 +38,7 @@ def game():
     ds = Dungeon(menu.select_map())
     coordinates = ds.start_room
     ds.print_dungeon(coordinates)
+    previous_cords = coordinates #Exists only to initiate variable for escape-function
     while True:
         if_escape = True
         menu.clear()
@@ -55,6 +56,8 @@ def game():
                 ds.dungeon[coordinates[0]][coordinates[1]].marker = '[X]'
             elif return_value == "escape":
                 battle.escape(hero, sort(ds.dungeon[x][y].monsters), username)
+                ds.move("", previous_cords) #Moves to previous room if escape is Succes
+                coordinates = previous_cords #The new cords is the old b/c went back
                 if_escape = False
 
         if check_room[1]:
@@ -71,6 +74,7 @@ def game():
         exit_check(hero, ds, coordinates, username) #Checks if Exit flag is True then prompts user for confirmation
         ds.print_dungeon(coordinates)
         direction = print_move()
+        previous_cords = coordinates #Previous Cords
         coordinates = ds.move(direction, coordinates)
         #input()
 

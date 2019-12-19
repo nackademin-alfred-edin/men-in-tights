@@ -153,6 +153,7 @@ def attack(hero, list_of_monsters, username): #TODO Endurance to be change to St
 
 
 def escape(hero, list_of_monsters, username):
+#def escape(hero, list_of_monsters, username, previous_cords, ds):
 
     escape_chance = hero.agility * 10
     if isinstance(hero, Heroes.Wizard): #Wizard Special Ability
@@ -165,9 +166,8 @@ def escape(hero, list_of_monsters, username):
     print(f"Probability: {var}")
     
     if var <= escape_chance:
-        print(f"Roll Succes! \nYou've escaped!")
-    
-        #TODO Go back to previous room
+        print(f"Roll Succes! \nYou've escaped! You've returned to the previous room")
+
     else:
         print("Roll Failed! \nCannot escape!!!")
         time.sleep(2)
