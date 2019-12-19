@@ -47,11 +47,17 @@ def game():
         check_room = check(hero, ds, coordinates)
         
         if check_room[0]:
-            return_value = menu.attack_menu()
+            if hero.ai == True:
+                return_value = menu.ai_attack_menu()
+            else:
+                return_value = menu.attack_menu()
             x = coordinates[0]
             y = coordinates[1]
             if return_value == "attack":
-                battle.attack(hero, sort(ds.dungeon[x][y].monsters), username)
+                if hero.ai == True: #If AI-Flag is True uses AI-Attack without input
+                    battle.ai_attack(hero, sort(ds.dungeon[x][y].monsters), username)
+                else:
+                    battle.attack(hero, sort(ds.dungeon[x][y].monsters), username)
                 ds.dungeon[coordinates[0]][coordinates[1]].monsters = [] #Clear monster from Room Object
                 ds.dungeon[coordinates[0]][coordinates[1]].marker = '[X]'
             elif return_value == "escape":
@@ -65,6 +71,7 @@ def game():
                 hero.points += coinCount(check_room[1])  # Adds sum of treasures to Hero's attribute   
                 print(f"Collected so far: {hero.points}g")
                 ds.dungeon[coordinates[0]][coordinates[1]].treasure = [] #Clear treasure from Room Object
+                ds.dungeon[coordinates[0]][coordinates[1]].empty = True #For AI to determine if the room is empty or not
                 ds.dungeon[coordinates[0]][coordinates[1]].marker = '[X]'
         else:
             print("""
@@ -73,9 +80,14 @@ def game():
         
         exit_check(hero, ds, coordinates, username) #Checks if Exit flag is True then prompts user for confirmation
         ds.print_dungeon(coordinates)
-        direction = print_move()
-        previous_cords = coordinates #Previous Cords
-        coordinates = ds.move(direction, coordinates)
+        if hero.ai == True:
+            sleep(3)
+            previous_cords = coordinates
+            coordinates = ds.ai_move(coordinates)
+        else:
+            direction = print_move()
+            previous_cords = coordinates #Previous Cords
+            coordinates = ds.move(direction, coordinates)
         #input()
 
 game()

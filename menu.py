@@ -4,6 +4,7 @@ from time import sleep
 import dungeon_map
 import Heroes
 import battle
+import random
 
 
 #################################################################################################################
@@ -181,28 +182,40 @@ def Thief():
 def AI_Knight():
     clear()
     printLogo()
+
+    hero = Heroes.Knight()
     print("""
                                         AI have chosen 'AI Knight'!
         """)
+    hero.ai = True
     sleep(2)
+    return hero
     
 
 def AI_Wizard():
     clear()
     printLogo()
+
+    hero = Heroes.Wizard()
     print("""
                                         AI have chosen 'AI Wizard'!
             """)
+    hero.ai = True
     sleep(2)
+    return hero
 
 
 def AI_Thief():
     clear()
     printLogo()
+
+    hero = Heroes.Thief()
     print("""
                                         AI have chosen 'AI Thief'!
             """)
+    hero.ai = True
     sleep(2)
+    return hero
 
 
 # menu to select hero
@@ -297,6 +310,25 @@ def attack_menu():
         elif choice_menu[choice] == "escape":
             return "escape"#battle.escape(hero, sort(ds.dungeon[x][y].monsters))
 
+
+def ai_attack_menu():
+    print("""
+                                               \|||/
+                                               (o o)
+--------------------------------------------ooO-(_)-Ooo-----------------------------------------
+                        A monster is lurking in this room, do you fight or flight!?
+                                            """)
+    choice_menu = { '1': "attack",
+                    '2': "escape"
+                    }
+    sleep(2)
+    choice = str(random.randint(1, 2))
+    print(f"AI Chose: {choice_menu[choice]} ")
+    sleep(3)
+    if choice_menu[choice] == "attack":
+        return "attack"#battle.attack(hero, sort(ds.dungeon[x][y].monsters))
+    elif choice_menu[choice] == "escape":
+        return "escape"#battle.escape(hero, sort(ds.dungeon[x][y].monsters))
 
 ##################################################################################################################
 
