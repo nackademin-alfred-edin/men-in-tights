@@ -13,7 +13,7 @@ def attack(hero, list_of_monsters): #TODO Endurance to be change to Stamina to m
         input(f"""
                                 You charge heroically towards the {list_of_monsters[0].name}!
 
-                                        Press any key to enter battle""")
+                                     Press any key to enter battle""")
         menu.clear()
         menu.printLogo()
         print("""           
@@ -41,8 +41,8 @@ def attack(hero, list_of_monsters): #TODO Endurance to be change to Stamina to m
                     
                     print("""
 
-                                Successfull roll! Monster takes 1 damage
-                                                Nice hit!
+                              Successfull roll! Monster takes 1 damage
+                                            Nice hit!
                     """)
                     list_of_monsters[0].endurance -= 1
                     
@@ -67,9 +67,9 @@ def attack(hero, list_of_monsters): #TODO Endurance to be change to Stamina to m
                                    Press any key to defend yourself!""")
                     menu.clear()
                     menu.printLogo()
-                    print("""
-                    (Enemy turn)""")
-                    menu.roll_dice()
+                    #print("""
+                    #(Enemy turn)""")
+                    #menu.roll_dice()
                     time.sleep(1)
 
             else:
@@ -93,13 +93,17 @@ def attack(hero, list_of_monsters): #TODO Endurance to be change to Stamina to m
                 
                 time.sleep(1)
                 print("""
-                                     Monster attacks you for 1 damage!""")
+                                    Monster attacks you for 1 damage!""")
                 time.sleep(2)
-                menu.clear()
-                menu.printLogo()
+                #menu.clear()
+                #menu.printLogo()
                 if isinstance(hero, Heroes.Knight) and shield_block == True: #Knight special abilitie
                     print("""
-                                    First attack blocked by your shield!""")
+                                   First attack blocked by your shield!""")
+                    input("""
+                                             EPIC save!
+
+                                 Press any key to start your turn""")
                     shield_block = False
                 else:
                     hero.endurance -= 1
