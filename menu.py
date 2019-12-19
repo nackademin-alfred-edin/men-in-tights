@@ -50,7 +50,6 @@ def startScreen():
     username = input(
                      """
                                     WELCOME TO DUNGEON RUN!
-
                                        Enter username:""")
     check_if_exists(username)
     return username
@@ -143,24 +142,6 @@ def AI_Thief():
     sleep(2)
 
 
-def AI_choice_menu():
-    print("""
-                            Start by choosing your AI hero:
-                                                1. AI Knight
-                                                2. AI Wizard
-                                                3. AI Thief
-    \n""")
-    choice = input("""   
-                                        Enter number for AI Hero: """)
-    choice_menu =  {'1': AI_Knight,
-                    '2': AI_Wizard,
-                    '3': AI_Thief}
-    if choice not in choice_menu.keys():
-        print("Please choose a hero ")
-    else:
-        choice_menu[choice]()
-
-
 # menu to select hero
 def hero_menu():
     print("""
@@ -168,7 +149,6 @@ def hero_menu():
                                             1. Knight
                                             2. Wizard
                                             3. Thief
-
                                 Or load an AI to play the game for you!
                                             4. AI Knight
                                             5. AI Wizard
@@ -197,17 +177,31 @@ def clear():
 #############################################################################################################
 
 # menu to select map size
+def small():
+    return 4
+
+def medium():
+    return 5
+
+def large():
+    return 8
+
 def select_map():
     size = input("""
                                         Select size of the map:
                                             1. Small (4x4)
                                             2. Medium (5x5)
                                             3. Large (8x8)
-
                                             --->""")
-    if size == "1":
-        return 4
-    elif size == "2":
-        return 5
-    elif size == "3":
-        return 8
+    choice_menu = { '1': small(),
+                    '2': medium(),
+                    '3': large()}
+    if size not in choice_menu.keys():
+        menu.clear()
+        menu.printLogo()
+        print("Please pick a number")
+        sleep(0.5)
+        size = 0
+        select_map()
+    else:
+        return choice_menu[size]

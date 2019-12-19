@@ -37,7 +37,7 @@ def escape(hero):
     var = random.randint(0, 100)
     #print(f"Probability: {var}") 
     if var <= escape_chance:
-        print(f"Roll Succes! \nYou've escaped!")
+        print(f"Roll Success! \nYou've escaped!")
     else:
         print("Roll Failed! \nCannot escape")
 
