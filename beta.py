@@ -1,6 +1,6 @@
 import menu
 from dungeon_map import *
-from Heroes import *
+import Heroes
 from time import sleep
 
 
