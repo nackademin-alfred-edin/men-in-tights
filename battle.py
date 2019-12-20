@@ -71,7 +71,7 @@ def attack(hero, list_of_monsters, username): #TODO Endurance to be change to St
                     #print("""
                     #(Enemy turn)""")
                     #menu.roll_dice()
-                    time.sleep(1)
+                    #time.sleep(1)
 
             else:
                 print("""           
