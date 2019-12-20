@@ -185,7 +185,7 @@ def AI_Knight():
 
     hero = Heroes.Knight()
     print("""
-                                        You've chosen 'Knight'!
+                                        You've chosen 'AI Knight'!
                                                                .-.
                                                              {'{#}'}
                                               {}               8@8
@@ -223,7 +223,7 @@ def AI_Wizard():
 
     hero = Heroes.Wizard()
     print("""
-                                        You've chosen 'Wizard'!
+                                        You've chosen 'AI Wizard'!
                                                     ,---.
                                                    /    |
                                                   /     |
@@ -254,7 +254,7 @@ def AI_Thief():
 
     hero = Heroes.Thief()
     print("""
-                                        You've chosen 'Thief'!
+                                        You've chosen 'AI Thief'!
                                               _..__
                                             .'  I  '.
                                             |.-"'"-.|
