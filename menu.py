@@ -1,9 +1,9 @@
 import json
 import os
 from time import sleep
-import dungeon_map
+#import dungeon_map
 import Heroes
-import battle
+#import battle
 import random
 
 

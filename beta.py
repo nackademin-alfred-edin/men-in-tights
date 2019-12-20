@@ -1,8 +1,3 @@
-import menu
-from dungeon_map import *
-from Heroes import *
-from time import sleep
-
 
 def print_move():
     direction = ""
@@ -55,7 +50,10 @@ def game():
             y = coordinates[1]
             if return_value == "attack":
                 if hero.ai == True: #If AI-Flag is True uses AI-Attack without input
+                    qty_monsters = len(ds.dungeon[x][y].monsters)
                     battle.ai_attack(hero, sort(ds.dungeon[x][y].monsters), username)
+                    hero.visitedrooms += 1
+                    hero.monsters_slained += qty_monsters
                 else:
                     battle.attack(hero, sort(ds.dungeon[x][y].monsters), username)
                 ds.dungeon[coordinates[0]][coordinates[1]].monsters = [] #Clear monster from Room Object
@@ -73,10 +71,14 @@ def game():
                 ds.dungeon[coordinates[0]][coordinates[1]].treasure = [] #Clear treasure from Room Object
                 ds.dungeon[coordinates[0]][coordinates[1]].empty = True #For AI to determine if the room is empty or not
                 ds.dungeon[coordinates[0]][coordinates[1]].marker = '[X]'
+                hero.visitedrooms += 1
+                
         else:
             print("""
                                             Room is empty""")
             ds.dungeon[coordinates[0]][coordinates[1]].marker = '[X]'
+            if ds.dungeon[coordinates[0]][coordinates[1]].marker != '[X]':
+                hero.visitedrooms += 1
         
         exit_check(hero, ds, coordinates, username) #Checks if Exit flag is True then prompts user for confirmation
         ds.print_dungeon(coordinates)
@@ -89,5 +91,11 @@ def game():
             previous_cords = coordinates #Previous Cords
             coordinates = ds.move(direction, coordinates)
         #input()
+
+
+import menu
+from dungeon_map import *
+from Heroes import *
+from time import sleep
 
 game()
