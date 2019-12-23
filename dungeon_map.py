@@ -1,11 +1,14 @@
 import menu
 from random import randint
 from sys import exit
+import os
 import monster_treasure as mt
 import Heroes
 import battle
 import die
 from time import sleep
+
+#from beta import game
 
 
 class Dungeon:
@@ -320,8 +323,18 @@ def game_over(hero, username):
     if hero.endurance == 0:
         print(f"GAME OVER\nYOU'VE DIED\nSaved {username} and {hero.points}g to file")
         menu.save_points(username, hero.points)
-        exit()
+        if hero.ai == True:
+            print(f"The AI managed to gather following in it's journey\nVisited rooms: {hero.visitedrooms}  Amount of Slained of Monsters: {hero.monsters_slained}  Gold Gathered: {hero.points}")
+            sleep(5)
+            os.system("python3 beta.py")
+        else:
+            exit()
     else:
         print(f"Congratulations you've surived the Dungeon Run!\nSaved {username} and {hero.points}g to file")
         menu.save_points(username, hero.points)
-        exit()
+        if hero.ai == True:
+            print(f"The AI managed to gather following in it's journey\nVisited rooms: {hero.visitedrooms}  Amount of Slained of Monsters: {hero.monsters_slained}  Gold Gathered: {hero.points}")
+            sleep(5)
+            os.system("python3 beta.py")
+        else:
+            exit()
